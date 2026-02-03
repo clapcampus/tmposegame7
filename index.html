@@ -1,30 +1,67 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Teachable Machine Pose Model</title>
-    <link rel="stylesheet" href="./css/style.css" />
-  </head>
-  <body>
-    <h1>Teachable Machine Pose Model</h1>
-    <div class="button-container">
-      <button type="button" id="startBtn" onclick="init()">Start</button>
-      <button type="button" id="stopBtn" onclick="stop()" disabled>Stop</button>
-    </div>
-    <div class="canvas-container">
-      <canvas id="canvas"></canvas>
-      <div id="max-prediction"></div>
-    </div>
-    <div id="label-container"></div>
 
-    <!-- Teachable Machine 라이브러리 -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <title>Teachable Machine Pose Model</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
 
-    <!-- 애플리케이션 모듈 -->
-    <script src="./js/stabilizer.js"></script>
-    <script src="./js/poseEngine.js"></script>
-    <script src="./js/gameEngine.js"></script>
-    <script src="./js/main.js"></script>
-  </body>
+<body>
+  <h1>Fruit Catcher 🍎</h1>
+
+  <div class="game-wrapper">
+    <!-- Main Game Area -->
+    <div class="game-area">
+      <div class="hud">
+        <div class="hud-item">Score: <span id="score-display">0</span></div>
+        <div class="hud-item">Level: <span id="level-display">1</span></div>
+        <div class="hud-item">Time: <span id="time-display">60</span></div>
+      </div>
+
+      <div class="canvas-wrapper">
+        <canvas id="game-canvas" width="600" height="800"></canvas>
+        <div id="message-overlay" class="hidden">
+          <h2 id="message-title">Game Over</h2>
+          <p id="message-score">Score: 0</p>
+          <button id="restartBtn">Play Again</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar / Webcam Area -->
+    <div class="sidebar">
+      <div class="control-panel">
+        <button type="button" id="startBtn" onclick="init()">Camera Start</button>
+        <button type="button" id="gameStartBtn" onclick="startGame()" disabled>Game Start</button>
+        <button type="button" id="stopBtn" onclick="stop()" disabled>Stop All</button>
+      </div>
+
+      <div class="webcam-container">
+        <div id="max-prediction">Ready</div>
+        <canvas id="webcam-canvas" width="200" height="200"></canvas>
+      </div>
+
+      <div id="label-container"></div>
+
+      <div class="instructions">
+        <h3>How to Play</h3>
+        <p>👈 Left: Move Left</p>
+        <p>😐 Center: Move Center</p>
+        <p>👉 Right: Move Right</p>
+        <p>🔥 Avoid Bombs!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
+
+  <script src="js/stabilizer.js"></script>
+  <script src="js/poseEngine.js"></script>
+  <script src="js/gameEngine.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
 </html>
